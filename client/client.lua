@@ -3,10 +3,12 @@ local sleep = 1000
 
 RegisterNetEvent('xechristmas:createPresent', function(data)
     activePresent = data
+    createMapPresent(data)
 end)
 
 RegisterNetEvent('xechristmas:removePresent', function(data)
     activePresent = nil
+    createMapPresent()
 end)
 
 CreateThread(function()
@@ -34,6 +36,21 @@ CreateThread(function()
         end
     end
 end)
+
+function createMapPresent(data)
+    if data == nil then RemoveBlip(presentBlip) return end
+
+    local blipCoords = data.coords
+    presentBlip = AddBlipForCoord(blipCoords)
+    SetBlipSprite(presentBlip, 351)
+    SetBlipDisplay(presentBlip, 4)
+    SetBlipScale(presentBlip, 1.0)
+    SetBlipColour(presentBlip, 1)
+    SetBlipAsShortRange(presentBlip, true)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString('Christams Present')
+    EndTextCommandSetBlipName(presentBlip)
+end
 
 function drawNativeInfo(text)
     SetTextComponentFormat('STRING')
